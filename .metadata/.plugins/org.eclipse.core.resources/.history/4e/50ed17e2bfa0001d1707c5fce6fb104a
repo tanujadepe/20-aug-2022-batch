@@ -1,0 +1,88 @@
+package neoStoxTestClasses;
+
+import org.testng.annotations.Test;
+
+import NeoStoxClasses.NeostoxHomePage;
+import neoStoxBase.basae;
+import neoStoxPomClasses.NeoStoxDashBoardPage;
+import neoStoxPomClasses.NeoStoxPasswordPage;
+import neoStoxPomClasses.NeoStoxSignInPage;
+import neoStoxUtilityClasses.utility;
+
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+
+public class ValidateNeoStoxUserName extends basae
+{
+	NeostoxHomePage home;
+	NeoStoxDashBoardPage dash;
+	NeoStoxSignInPage signin;
+	NeoStoxPasswordPage pass;
+	 String s = "TCID1234";
+	
+	
+	 @BeforeClass
+	  public void launchNeoStoxApp()
+	 {
+		 launchBrowser();
+		 home=new NeostoxHomePage(driver);
+		 signin= new NeoStoxSignInPage(driver);
+		 pass= new NeoStoxPasswordPage(driver);
+		 dash= new NeoStoxDashBoardPage(driver);
+		
+	 }
+		 
+	  
+	 
+		
+	
+	@BeforeMethod
+	  public void logInToNeoStox() throws EncryptedDocumentException, IOException, InterruptedException
+	 {
+		home.clickonsignin();
+		utility.implisitWait(1000, driver);
+		signin.enterMobilenumber(utility.readDataFromEXel(0, 0));
+		Thread.sleep(1000);
+		signin.ClickOnSignInButton();
+		pass.EnterPasswordField(utility.readDataFromEXel(0, 1));
+		utility.implisitWait(1000, driver);
+	    dash.handlePopUp(driver);
+	    utility.implisitWait(1000, driver);
+	  }
+  @Test
+  public void validateUserName() throws EncryptedDocumentException, IOException
+  {
+	  Assert.assertEquals(dash.getUserName(), utility.readDataFromEXel(0, 2),"actual user name and expected user name not matched");
+    
+	utility.takeScreenshot(driver,s);
+	
+      
+  }
+  
+
+  @AfterMethod
+  public void logOutFromNeoStox() throws InterruptedException 
+  {
+	  dash.logOutFromNeoStox();
+	  
+  }
+
+ 
+
+  @AfterClass
+  public void closeNeoStoxApp() throws InterruptedException 
+  {
+	  driver.close();
+	  Reporter.log("close browser",true);
+	  Thread.sleep(1000);
+  }
+
+}

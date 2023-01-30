@@ -1,9 +1,0 @@
-package neoStoxPOMClassesUsingDDF;
-
-import org.testng.annotations.Test;
-
-public class ValidateNeoStoxUserName {
-  @Test
-  public void f() {
-  }
-}
