@@ -1,0 +1,26 @@
+import java.io.File;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+
+public class screenshot {
+
+	public static void main(String[] args) throws InterruptedException
+	{
+		
+		System.setProperty("webdriver.chrome.driver", "D:\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://chercher.tech/practice/frames-example-selenium-webdriver");
+		Thread.sleep(1000);	
+		driver.get("//https://paytm.com");
+		file source=((takescreenshot) driver)).getscreenshotas(OutputType.FILE);
+		//System.out.println(source);
+		File destination=new File("D:\\selenium-java-4.5.3 (1)\\testng.ng");
+		FileHandler.copy(source,destination);
+		
+	}
+
+}

@@ -1,0 +1,28 @@
+package NeoStoxPomClasses;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class NeoStoxSign
+{
+@FindBy(xpath="//input[@type='number']")private WebElement InPutText;
+@FindBy(xpath="(//a[text()='Sign Up'])[2]")private WebElement SignInText;
+
+
+public  NeoStoxSign( WebDriver driver)
+{
+	
+	PageFactory.initElements(driver, this);
+	PageFactory.initElements(driver, this);
+}
+public void InPutTextbox()
+{
+	InPutText.sendKeys("7745079755");
+}
+public void ClickSignInText()
+{
+	SignInText.click();
+}
+}

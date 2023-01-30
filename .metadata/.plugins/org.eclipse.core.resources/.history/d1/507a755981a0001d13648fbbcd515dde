@@ -1,0 +1,40 @@
+package neoStoxPomClasses;
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Reporter;
+
+public class NeoStoxPasswordPage
+{
+@FindBy(id="txt_accesspin") private WebElement Passwordfield;
+
+@FindBy(xpath="//a[text()='Submit']")private WebElement SubmitButton;
+
+//@FindBy(id = "txt_accesspin") private WebElement passwordField;
+//@FindBy(id = "lnk_submitaccesspin") private WebElement submitButton;
+
+public  NeoStoxPasswordPage( WebDriver driver)
+{
+	
+	PageFactory.initElements(driver,this);
+}
+public void EnterPasswordField(String string)
+{
+	Passwordfield.sendKeys("1111");	
+	Reporter.log("Enter password",true);
+	
+}
+public void ClickOnSubmitButton()
+{
+	SubmitButton.click();
+	
+	SubmitButton.click();
+	SubmitButton.click();
+	Reporter.log("cliccking on submitbutton",true);
+	
+	
+}
+}

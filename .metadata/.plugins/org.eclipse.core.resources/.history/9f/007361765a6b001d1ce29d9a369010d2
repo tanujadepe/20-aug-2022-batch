@@ -1,0 +1,17 @@
+import java.io.File;
+
+import org.openqa.selenium.OutputType;
+
+public class takescreenshot {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public file getscreenshotas(OutputType<File> file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

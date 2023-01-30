@@ -1,0 +1,89 @@
+package neoStoxPOMClassesUsingDDF;
+
+import static org.testng.Assert.assertEquals;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import NeoStoxPomClass.NeoStoxDashBoardPage;
+import NeoStoxPomClass.NeoStoxHomePage;
+import NeoStoxPomClass.NeoStoxPasswordPage;
+import NeoStoxPomClass.NeoStoxSignInPage;
+
+public class validateNEostoxUserNameUsingGeneralMethod 
+{
+	WebDriver  driver;
+	NeoStoxHomePage home;
+	NeoStoxSignInPage signin;
+	NeoStoxPasswordPage pwd;
+	NeoStoxDashBoardPage dash;
+	File myFile;
+	Sheet mySheet;
+	String s="TCID1234";
+
+	@BeforeClass
+	    public void	 launchNeostoxApp() throws EncryptedDocumentException, IOException
+		{
+			    System.setProperty("webdriver.chrome.driver", "D:\\chromedriver_win32 (1)\\chromedriver.exe");
+			    driver=new ChromeDriver();
+				//driver.manage().window().maximize();
+				driver.get("https://neostox.com/");
+				GeneralMethod.implisitWait(1000, driver);
+				Reporter.log("launch launchNeostoxApp", true); 
+				home= new NeoStoxHomePage(driver);
+				signin= new NeoStoxSignInPage(driver);
+				pwd= new NeoStoxPasswordPage(driver);
+				dash= new NeoStoxDashBoardPage(driver);
+	    }
+	@BeforeMethod
+	public void loginToNeoStoxApp() throws EncryptedDocumentException, IOException, InterruptedException
+	
+	{
+		home.clickOnSignInButton();
+		GeneralMethod.implisitWait(1000, driver);
+		
+		signin.enterMobilenumber(GeneralMethod.readDataFromEXel(0, 0));
+		signin.ClickOnSignInButton();
+		GeneralMethod.implisitWait(1000, driver);
+		
+		pwd.EnterPasswordField(GeneralMethod.readDataFromEXel(0, 1));
+		Thread.sleep(1000);
+		pwd.ClickOnSubmitButton();
+		GeneralMethod.implisitWait(10000, driver);
+		
+		dash.handlePopUp();
+		GeneralMethod.implisitWait(1000, driver);
+		
+	}
+	
+  @Test
+  public  void validateUserName() throws EncryptedDocumentException, IOException
+  {
+	  Assert.assertEquals(dash.getUserName(), GeneralMethod.readDataFromEXel(0,2));
+	  GeneralMethod.takeScreenshot(driver, s);  
+  }
+  @AfterMethod 
+  public  void logOutFromNeoSTox() throws InterruptedException
+  {
+	  GeneralMethod.implisitWait(1000, driver);
+	  dash.logOutFromNeoStox();
+	  
+  }
+  @AfterClass
+  public void closeBrowser()
+  {
+	  driver.close();
+  }
+}
