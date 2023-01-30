@@ -49,7 +49,6 @@ INDEX VERSION 1.131+C:\Users\LATUR\eclipse-workspace\.metadata\.plugins\org.ecli
 3684954057.index
 2217502048.index
 4100954483.index
-4279256867.index
 3160251285.index
 1941557395.index
 466268516.index
